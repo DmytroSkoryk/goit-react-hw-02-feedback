@@ -3,17 +3,17 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 const Section = ({ title, children }) => {
-    return (
-      <section>
-        <p className={css.title}>{title}</p>
-        {children}
-      </section>
-    );
-  };
-  
-  Section.propTypes = {
-    title: PropTypes.string.isRequired,
-    children: PropTypes.node.isRequired,
-  };
+  return (
+    <section>
+      <p className={css.title}>{title}</p>
+      {children}
+    </section>
+  );
+};
 
-  export default Section;
+Section.propTypes = {
+  title: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+};
+
+export default Section;

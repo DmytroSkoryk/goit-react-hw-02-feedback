@@ -13,8 +13,8 @@ class App extends React.Component {
     bad: 0,
   };
 
-  handleIncrement = (type) => {
-    this.setState((prevState) => ({
+  onLeaveFeedback = type => {
+    this.setState(prevState => ({
       [type]: prevState[type] + 1,
     }));
   };
@@ -22,23 +22,31 @@ class App extends React.Component {
   render() {
     const { good, neutral, bad } = this.state;
     const total = good + neutral + bad;
+    const positivePercentage =
+      total === 0 ? 0 : `${Math.round((good / total) * 100)}%`;
+
     return (
       <div className={classNames(css.container)}>
-      <Section title="Please leave feedback">
-        <FeedbackOptions handleIncrement={this.handleIncrement} />
-      </Section>
-      {total === 0 ? (
-					<Notification message="No feedback given" />
-				) : (
-					<Section title="Statistics">
-						<Statistics
-							good={good}
-							neutral={neutral}
-							bad={bad}
-						/>
-					</Section>
-				)}
-    </div>
+        <Section title="Please leave feedback">
+          <FeedbackOptions
+            onLeaveFeedback={this.onLeaveFeedback}
+            options={['good', 'neutral', 'bad']}
+          />
+        </Section>
+        {total === 0 ? (
+          <Notification message="No feedback given" />
+        ) : (
+          <Section title="Statistics">
+            <Statistics
+              good={good}
+              neutral={neutral}
+              bad={bad}
+              total={total}
+              positivePercentage={positivePercentage}
+            />
+          </Section>
+        )}
+      </div>
     );
   }
 }

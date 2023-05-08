@@ -4,25 +4,22 @@ import React from 'react';
 
 class FeedbackOptions extends React.Component {
   render() {
-    const { handleIncrement } = this.props;
+    const { onLeaveFeedback, options } = this.props;
+
     return (
       <div>
         <ul className={css.feedbackBtn}>
-          <li>
-            <button type="button" className={css.btn} onClick={() => handleIncrement('good')}>
-              Good
-            </button>
-          </li>
-          <li>
-            <button type="button" className={css.btn} onClick={() => handleIncrement('neutral')}>
-              Neutral
-            </button>
-          </li>
-          <li>
-            <button type="button" className={css.btn} onClick={() => handleIncrement('bad')}>
-              Bad
-            </button>
-          </li>
+          {options.map(option => (
+            <li key={option}>
+              <button
+                type="button"
+                className={css.btn}
+                onClick={() => onLeaveFeedback(option)}
+              >
+                {option}
+              </button>
+            </li>
+          ))}
         </ul>
       </div>
     );
@@ -30,7 +27,8 @@ class FeedbackOptions extends React.Component {
 }
 
 FeedbackOptions.propTypes = {
-  handleIncrement: PropTypes.func.isRequired,
+  onLeaveFeedback: PropTypes.func.isRequired,
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default FeedbackOptions;
